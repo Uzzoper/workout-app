@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+  
+  <!-- Logo/Título -->
+  <div class="login-header">
+    <h1>Treinaí App</h1>
+    <p>Gerencie seus treinos</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <ion-text color="danger" *ngIf="errorMessage">
+    <p class="error-message">{{ errorMessage }}</p>
+  </ion-text>
+
+  <!-- Formulário -->
+  <form (ngSubmit)="login()">
+    
+    <!-- Email -->
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input 
+        type="email" 
+        [(ngModel)]="email" 
+        name="email"
+        required>
+      </ion-input>
+    </ion-item>
+
+    <!-- Senha -->
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input 
+        type="password" 
+        [(ngModel)]="password" 
+        name="password"
+        required>
+      </ion-input>
+    </ion-item>
+    
+    <!-- Botão Login -->
+    <ion-button 
+      expand="block" 
+      type="submit"
+      [disabled]="isLoading"
+      class="login-button">
+      <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+      <span *ngIf="!isLoading">Entrar</span>
+    </ion-button>
+  </form>
+
+  <!-- Link para registro -->
+  <div class="register-link">
+    <ion-button fill="clear" (click)="goToRegister()">
+      Criar nova conta
+    </ion-button>
+  </div>
+</ion-content>

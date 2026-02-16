@@ -1,0 +1,41 @@
+.login-header {
+  text-align: center;
+  margin: 60px 0 40px;
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    margin: 0;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin-top: 8px;
+    font-size: 16px;
+  }
+}
+
+.error-message {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+ion-item {
+  margin-bottom: 16px;
+  --border-radius: 8px;
+}
+
+.login-button {
+  margin-top: 24px;
+  --border-radius: 8px;
+  height: 48px;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 24px;
+  ion-button {
+    text-transform: none;
+    font-size: 14px;
+  }
+}
