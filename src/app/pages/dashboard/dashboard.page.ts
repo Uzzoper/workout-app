@@ -9,7 +9,7 @@ import { addIcons } from 'ionicons';
 import { logOutOutline, add, barbellOutline } from 'ionicons/icons';
 import {
     IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
-    IonRefresher, IonRefresherContent, IonSpinner, IonText, IonCard, IonCardHeader,
+    IonRefresher, IonRefresherContent, IonSpinner, IonCard, IonCardHeader,
     IonCardTitle, IonCardSubtitle, IonCardContent, IonBadge, IonFab, IonFabButton
 } from '@ionic/angular/standalone';
 
@@ -31,7 +31,6 @@ import {
         IonRefresher,
         IonRefresherContent,
         IonSpinner,
-        IonText,
         IonCard,
         IonCardHeader,
         IonCardTitle,
