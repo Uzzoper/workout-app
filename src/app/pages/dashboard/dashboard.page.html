@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Meus Treinos</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="logout()">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <!-- Pull to refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="loadWorkouts($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Carregando treinos...</p>
+    </div>
+
+    <!-- Lista vazia -->
+    <div *ngIf="!isLoading && workouts.length === 0" class="empty-container">
+        <ion-icon name="barbell-outline" size="large"></ion-icon>
+        <h2>Nenhum treino ainda</h2>
+        <p>Crie seu primeiro treino para começar!</p>
+        <ion-button (click)="createWorkout()">
+            Criar Treino
+        </ion-button>
+    </div>
+
+    <!-- Lista de treinos -->
+    <div *ngIf="!isLoading && workouts.length > 0" class="workouts-list">
+        <ion-card *ngFor="let workout of workouts" (click)="openWorkout(workout)">
+            <ion-card-header>
+                <ion-card-title>{{ workout.name }}</ion-card-title>
+                <ion-card-subtitle *ngIf="workout.scheduled_date">
+                    {{ workout.scheduled_date | date:'dd/MM/yyyy' }}
+                </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+                <p *ngIf="workout.description">{{ workout.description }}</p>
+                <ion-badge color="primary">
+                    {{ workout.exercises?.length || 0 }} exercícios
+                </ion-badge>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <!-- Botão flutuante -->
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="createWorkout()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
