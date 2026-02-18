@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonSpinner, IonText } from '@ionic/angular/standalone';
+import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonSpinner, IonText, ToastController } from '@ionic/angular/standalone';
 import { firstValueFrom } from 'rxjs';
-import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-register',
@@ -13,7 +12,6 @@ import { ToastController } from '@ionic/angular';
     styleUrls: ['./register.page.scss'],
     standalone: true,
     imports: [CommonModule, FormsModule, IonContent, IonItem, IonLabel, IonInput, IonButton, IonSpinner, IonText],
-    providers: [ToastController]
 })
 
 export class RegisterPage {
@@ -28,7 +26,7 @@ export class RegisterPage {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private toastController: ToastController 
+        private toastController: ToastController
     ) { }
 
     async register() {
@@ -61,7 +59,7 @@ export class RegisterPage {
                 color: 'success'
             });
             await toast.present();
-    
+
             setTimeout(() => {
                 this.router.navigate(['/login']);
             }, 1500);
