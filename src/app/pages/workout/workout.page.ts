@@ -70,9 +70,7 @@ export class WorkoutPage implements OnInit {
     }
 
     addExercise() {
-        this.router.navigate(['/exercises/new'], {
-            queryParams: { workout_id: this.workoutId }
-        });
+        this.router.navigate([`/workout/${this.workoutId}/exercises/new`]);
     }
     goBack() {
         this.router.navigate(['/dashboard']);
