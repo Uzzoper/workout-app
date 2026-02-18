@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="'/workout/' + workoutId"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Novo Exercício</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form (ngSubmit)="saveExercise()">
+
+        <ion-item>
+            <ion-label position="floating">Nome do Exercício *</ion-label>
+            <ion-input [(ngModel)]="name" name="name" type="text" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Séries *</ion-label>
+            <ion-input [(ngModel)]="sets" name="sets" type="number" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Repetições *</ion-label>
+            <ion-input [(ngModel)]="reps" name="reps" type="number" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Peso (kg)</ion-label>
+            <ion-input [(ngModel)]="weight" name="weight" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Descanso (segundos)</ion-label>
+            <ion-input [(ngModel)]="restTime" name="restTime" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating">Notas</ion-label>
+            <ion-textarea [(ngModel)]="notes" name="notes" rows="3"></ion-textarea>
+        </ion-item>
+        <ion-button expand="block" type="submit" class="ion-margin-top">
+            Salvar Exercício
+        </ion-button>
+    </form>
+</ion-content>
