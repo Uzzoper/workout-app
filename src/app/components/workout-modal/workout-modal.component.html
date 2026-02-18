@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Novo Treino</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">Cancelar</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-item>
+        <ion-label position="floating">Nome do Treino *</ion-label>
+        <ion-input [(ngModel)]="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Descrição</ion-label>
+        <ion-textarea [(ngModel)]="description" rows="3"></ion-textarea>
+    </ion-item>
+    <ion-item>
+        <ion-label>Data do Treino</ion-label>
+        <ion-datetime [(ngModel)]="scheduledDate" presentation="date"></ion-datetime>
+    </ion-item>
+    <ion-button expand="block" (click)="save()" class="ion-margin-top">
+        Criar Treino
+    </ion-button>
+</ion-content>
