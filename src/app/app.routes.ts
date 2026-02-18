@@ -21,4 +21,9 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then(m => m.DashboardPage)
   },
+
+  {
+    path: 'workout/:id',
+    loadComponent: () => import('./pages/workout/workout.page').then(m => m.WorkoutPage)
+  },
 ];

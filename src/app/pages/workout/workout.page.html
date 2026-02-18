@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/dashboard"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ workout?.name || 'Carregando...' }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="ion-text-center ion-padding">
+        <ion-spinner></ion-spinner>
+        <p>Carregando treino...</p>
+    </div>
+
+    <!-- Conteúdo -->
+    <div *ngIf="!isLoading && workout">
+        <!-- Card do Treino -->
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>{{ workout.name }}</ion-card-title>
+                <ion-card-subtitle *ngIf="workout.scheduled_date">
+                    {{ workout.scheduled_date | date:'dd/MM/yyyy' }}
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p *ngIf="workout.description">{{ workout.description }}</p>
+
+                <!-- Botões de ação -->
+                <ion-button expand="block" (click)="editWorkout()">
+                    <ion-icon name="create" slot="start"></ion-icon>
+                    Editar Treino
+                </ion-button>
+
+                <ion-button expand="block" color="danger" (click)="deleteWorkout()">
+                    <ion-icon name="trash" slot="start"></ion-icon>
+                    Deletar Treino
+                </ion-button>
+            </ion-card-content>
+        </ion-card>
+
+        <!-- Lista de Exercícios -->
+        <h2>Exercícios</h2>
+
+        <ion-list *ngIf="exercises.length > 0">
+            <ion-item *ngFor="let exercise of exercises">
+                <ion-label>
+                    <h3>{{ exercise.name }}</h3>
+                    <p>
+                        <ion-badge color="primary">{{ exercise.sets }} séries</ion-badge>
+                        <ion-badge color="secondary">{{ exercise.reps }} reps</ion-badge>
+                        <ion-badge color="tertiary" *ngIf="exercise.weight">{{ exercise.weight }}kg</ion-badge>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+        <!-- Estado vazio -->
+        <div *ngIf="exercises.length === 0" class="ion-text-center ion-padding">
+            <ion-icon name="fitness" size="large"></ion-icon>
+            <p>Nenhum exercício cadastrado</p>
+            <ion-button (click)="addExercise()">Adicionar primeiro exercício</ion-button>
+        </div>
+    </div>
+
+    <!-- Pull to refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="loadWorkout($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <!-- FAB para adicionar -->
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button (click)="addExercise()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
