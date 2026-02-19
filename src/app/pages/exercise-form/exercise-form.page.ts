@@ -27,7 +27,7 @@ export class ExerciseFormPage {
 
     name: string = '';
     sets: number = 3;
-    reps: number = 10;
+    reps: number = 12;
     weight?: number;
     restTime?: number;
     notes: string = '';
