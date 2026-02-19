@@ -1,20 +1,15 @@
 <ion-content class="ion-padding">
   
-  <!-- Logo/Título -->
   <div class="login-header">
-    <h1>Treinaí App</h1>
+    <h1>Treinaí</h1>
     <p>Gerencie seus treinos</p>
   </div>
 
-  <!-- Mensagem de erro -->
   <ion-text color="danger" *ngIf="errorMessage">
     <p class="error-message">{{ errorMessage }}</p>
   </ion-text>
-
-  <!-- Formulário -->
   <form (ngSubmit)="login()">
     
-    <!-- Email -->
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input 
@@ -25,7 +20,6 @@
       </ion-input>
     </ion-item>
 
-    <!-- Senha -->
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
       <ion-input 
@@ -36,7 +30,6 @@
       </ion-input>
     </ion-item>
     
-    <!-- Botão Login -->
     <ion-button 
       expand="block" 
       type="submit"
@@ -47,7 +40,6 @@
     </ion-button>
   </form>
 
-  <!-- Link para registro -->
   <div class="register-link">
     <ion-button fill="clear" (click)="goToRegister()">
       Criar nova conta
