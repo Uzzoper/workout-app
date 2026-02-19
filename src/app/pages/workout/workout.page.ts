@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
     IonContent, IonHeader, IonToolbar, IonTitle, IonButton,
-    IonItem, IonLabel, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle,
+    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle,
     IonCardContent, IonBadge, IonIcon, IonButtons, IonBackButton,
     IonFab, IonFabButton, IonRefresher, IonRefresherContent, IonSpinner,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, fitness, create, trash, arrowBack } from 'ionicons/icons';
+import { add, fitness, create, trash, arrowBack, chevronUp, chevronDown, timeOutline, documentTextOutline } from 'ionicons/icons';
 import { firstValueFrom } from 'rxjs';
 import { WorkoutService } from '../../services/workout.service';
 import { ExerciseService } from '../../services/exercise.service';
@@ -23,7 +23,7 @@ import { Exercise } from '../../models/exercise.model';
     imports: [
         CommonModule,
         IonContent, IonHeader, IonToolbar, IonTitle, IonButton,
-        IonItem, IonLabel, IonList, IonCard, IonCardHeader, IonCardTitle,
+        IonCard, IonCardHeader, IonCardTitle,
         IonCardSubtitle, IonCardContent, IonBadge, IonIcon, IonButtons, IonBackButton,
         IonFab, IonFabButton, IonRefresher, IonRefresherContent, IonSpinner,
     ]
@@ -34,6 +34,7 @@ export class WorkoutPage implements OnInit {
     exercises: Exercise[] = [];
     isLoading: boolean = true;
     workoutId: number = 0;
+    expandedExerciseId: number | null = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -41,7 +42,7 @@ export class WorkoutPage implements OnInit {
         private workoutService: WorkoutService,
         private exerciseService: ExerciseService
     ) {
-        addIcons({ add, fitness, create, trash, arrowBack });
+        addIcons({ add, fitness, create, trash, arrowBack, chevronUp, chevronDown, timeOutline, documentTextOutline });
     }
 
     ngOnInit() {
@@ -69,16 +70,34 @@ export class WorkoutPage implements OnInit {
         }
     }
 
+    toggleExercise(exerciseId: number) {
+        this.expandedExerciseId = this.expandedExerciseId === exerciseId ? null : exerciseId;
+    }
+    isExpanded(exerciseId: number): boolean {
+        return this.expandedExerciseId === exerciseId;
+    }
+
     addExercise() {
         this.router.navigate([`/workout/${this.workoutId}/exercises/new`]);
     }
+
     goBack() {
         this.router.navigate(['/dashboard']);
     }
+
     editWorkout() {
         console.log('Editar treino - em desenvolvimento');
     }
+
     async deleteWorkout() {
         console.log('Deletar treino - em desenvolvimento');
+    }
+
+    editExercise(exercise: Exercise) {
+        console.log('Editar exercício:', exercise);
+    }
+
+    async deleteExercise(exercise: Exercise) {
+        console.log('Deletar exercício:', exercise);
     }
 }

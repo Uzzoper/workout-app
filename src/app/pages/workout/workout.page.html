@@ -8,15 +8,12 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <!-- Loading -->
     <div *ngIf="isLoading" class="ion-text-center ion-padding">
         <ion-spinner></ion-spinner>
         <p>Carregando treino...</p>
     </div>
 
-    <!-- Conteúdo -->
     <div *ngIf="!isLoading && workout">
-        <!-- Card do Treino -->
         <ion-card>
             <ion-card-header>
                 <ion-card-title>{{ workout.name }}</ion-card-title>
@@ -27,7 +24,6 @@
             <ion-card-content>
                 <p *ngIf="workout.description">{{ workout.description }}</p>
 
-                <!-- Botões de ação -->
                 <ion-button expand="block" (click)="editWorkout()">
                     <ion-icon name="create" slot="start"></ion-icon>
                     Editar Treino
@@ -40,23 +36,53 @@
             </ion-card-content>
         </ion-card>
 
-        <!-- Lista de Exercícios -->
         <h2>Exercícios</h2>
 
-        <ion-list *ngIf="exercises.length > 0">
-            <ion-item *ngFor="let exercise of exercises">
-                <ion-label>
-                    <h3>{{ exercise.name }}</h3>
-                    <p>
+        <div *ngIf="exercises.length > 0" class="exercises-list">
+            <ion-card *ngFor="let exercise of exercises" (click)="toggleExercise(exercise.id)" class="exercise-card"
+                [class.expanded]="isExpanded(exercise.id)">
+
+                <ion-card-header>
+                    <ion-card-title>
+                        {{ exercise.name }}
+                        <ion-icon [name]="isExpanded(exercise.id) ? 'chevron-up' : 'chevron-down'"
+                            slot="end"></ion-icon>
+                    </ion-card-title>
+                    <ion-card-subtitle>
                         <ion-badge color="primary">{{ exercise.sets }} séries</ion-badge>
                         <ion-badge color="secondary">{{ exercise.reps }} reps</ion-badge>
                         <ion-badge color="tertiary" *ngIf="exercise.weight">{{ exercise.weight }}kg</ion-badge>
-                    </p>
-                </ion-label>
-            </ion-item>
-        </ion-list>
+                    </ion-card-subtitle>
+                </ion-card-header>
 
-        <!-- Estado vazio -->
+                <ion-card-content *ngIf="isExpanded(exercise.id)">
+                    <div class="exercise-details">
+                        <p *ngIf="exercise.rest_time">
+                            <ion-icon name="time-outline"></ion-icon>
+                            Descanso: {{ exercise.rest_time }} segundos
+                        </p>
+                        <p *ngIf="exercise.notes">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                            {{ exercise.notes }}
+                        </p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <ion-button fill="clear" color="primary"
+                            (click)="editExercise(exercise); $event.stopPropagation()">
+                            <ion-icon name="create" slot="start"></ion-icon>
+                            Editar
+                        </ion-button>
+                        <ion-button fill="clear" color="danger"
+                            (click)="deleteExercise(exercise); $event.stopPropagation()">
+                            <ion-icon name="trash" slot="start"></ion-icon>
+                            Excluir
+                        </ion-button>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
         <div *ngIf="exercises.length === 0" class="ion-text-center ion-padding">
             <ion-icon name="fitness" size="large"></ion-icon>
             <p>Nenhum exercício cadastrado</p>
@@ -64,12 +90,10 @@
         </div>
     </div>
 
-    <!-- Pull to refresh -->
     <ion-refresher slot="fixed" (ionRefresh)="loadWorkout($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <!-- FAB para adicionar -->
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
         <ion-fab-button (click)="addExercise()">
             <ion-icon name="add"></ion-icon>
